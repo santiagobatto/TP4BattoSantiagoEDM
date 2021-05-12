@@ -10,9 +10,11 @@ public interface ProductoService {
 	public void guardarProducto(Producto unProducto);
 	public Producto crearProducto();
 	public void modificarProducto(Producto productoAModificar);
-	public void eliminarProducto(Producto productoAEliminar);
 	public Producto obtenerUnProducto(String nombreProducto);
 	public List<Producto> obtenerTodosProductos();
 	public Producto obtenerProductoNuevo();
 	public Producto obtenerUltimoProducto();
+	
+	//public void eliminarProducto(int id);
+		
 }
