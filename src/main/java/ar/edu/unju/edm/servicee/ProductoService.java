@@ -14,7 +14,6 @@ public interface ProductoService {
 	public List<Producto> obtenerTodosProductos();
 	public Producto obtenerProductoNuevo();
 	public Producto obtenerUltimoProducto();
-	
-	//public void eliminarProducto(int id);
+	public void eliminarProducto(int id);
 		
 }

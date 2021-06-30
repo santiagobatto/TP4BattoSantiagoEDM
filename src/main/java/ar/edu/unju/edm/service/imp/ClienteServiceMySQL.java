@@ -2,38 +2,41 @@ package ar.edu.unju.edm.service.imp;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import ar.edu.unju.edm.model.Cliente;
+import ar.edu.unju.edm.repository.IClienteDAO;
 import ar.edu.unju.edm.servicee.IClienteService;
 
 @Service
-@Qualifier("otroImp")
-public class OtroImp implements IClienteService{
+@Qualifier("impmysql")
 
-//@Autowired
-//Cliente unCliente;
-//@Autowired
-//IClienteDAO clienteDAO;
+public class ClienteServiceMySQL implements IClienteService{
+
+	@Autowired
+	Cliente unCliente;
+	@Autowired
+	IClienteDAO clienteDAO;
+
 	
 	@Override
 	public void guardarCliente(Cliente unCliente) {
 		// TODO Auto-generated method stub
-		
-	//	clienteDAO.save(unCliente);
+		clienteDAO.save(unCliente);
 	}
 
 	@Override
 	public Cliente crearCliente() {
 		// TODO Auto-generated method stub
-		return null;
+		return unCliente;
 	}
 
 	@Override
 	public List<Cliente> obtenerTodosClientes() {
 		// TODO Auto-generated method stub
-		return null;
+		return (List<Cliente>) clienteDAO.findAll();
 	}
 
 	@Override
@@ -45,7 +48,7 @@ public class OtroImp implements IClienteService{
 	@Override
 	public void modificarCliente(Cliente clienteModificado) {
 		// TODO Auto-generated method stub
-
+		
 	}
-
+	
 }

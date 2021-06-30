@@ -53,14 +53,15 @@ public class ProductoController {
 		return("redirect:/producto");
 	}
 	
-/*	@GetMapping("eliminarProducto/{id}")
-	public String eliminarProducto(Model model, @PathVariable(name="id") int id) {
-		try {	ProductoService.eliminarProducto(id);}
+	@GetMapping("/producto/eliminarProducto/{id}")
+	public String eliminarProducto(Model model, @PathVariable(name="id") int id) {		
+		try {			
+			iProductoService.eliminarProducto(id);			
+		}
 		catch(Exception e){
 			model.addAttribute("listErrorMessage",e.getMessage());
 		}			
-		return "redirect:/producto";
+		return "redirect:/producto/mostrar";
 	}
-*/
 	
 }

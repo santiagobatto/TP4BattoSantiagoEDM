@@ -2,32 +2,65 @@ package ar.edu.unju.edm.model;
 
 import java.time.LocalDate;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Component;
 
+@Entity
+@Table(name = "CLIENTES")
+
 @Component
 public class Cliente {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	
+	@Column
 	private int nroDocumento;
 	
+	@Column
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate fechaNacimiento;
 	
-	//Calendar
-	//private Date fechaUltimCompra = new Date();
+	// Calendar
+	// private Date fechaUltimCompra = new Date();
 	
+	@Column
 	private String tipoDocumento;
+	
+	@Column
 	private int codigoAreaTelefono;
+	
+	@Column
 	private int numTelefono;
+	@Column
 	private String email;
 	
+	@Column
 	private String password;
+	
+	@Column
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate fechaUltimaCompra;
-	private String nYa;
-	private int edad;
-	private String datosAdicionales;
-	private String tiempoUltCompra;
 	
+	@Column
+	private String nYa;
+	
+	@Column
+	private int edad;
+	
+	@Column
+	private String datosAdicionales;
+	
+	@Column
+	private String tiempoUltCompra;
+
 	public String getTiempoUltCompra() {
 		return tiempoUltCompra;
 	}
@@ -127,5 +160,5 @@ public class Cliente {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
+
 }

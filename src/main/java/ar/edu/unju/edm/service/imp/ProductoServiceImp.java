@@ -40,16 +40,17 @@ public class ProductoServiceImp implements ProductoService {
 
 	}
 
-	/* @Override
+	@Override
 	public void eliminarProducto(int id) {
+		List<Producto> listadoProductos = null;
 		// TODO Auto-generated method stub
-		for (int i = 0; i < listaDeProductos.size(); i++){
-		    if (listaDeProductos.get(i).getCodProducto() == id) {
-		    	listaDeProductos.remove(i);
+		for (int i = 0; i < listadoProductos.size(); i++){
+		    if (listadoProductos.get(i).getCodProducto() == id ) {
+		    	listadoProductos.remove(i);
+		    
 		    }
 		}
 	}
-	*/
 
 	@Override
 	public Producto obtenerUnProducto(String nombreProducto) {
