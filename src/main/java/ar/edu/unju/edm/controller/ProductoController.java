@@ -21,6 +21,7 @@ public class ProductoController {
 	private static final Log LOGGER = LogFactory.getLog(ProductoController.class);
 	
 	@Autowired
+	@Qualifier("mysql")
 	ProductoService iProductoService;
 	
 	@GetMapping("/producto/mostrar")
@@ -34,9 +35,7 @@ public class ProductoController {
 	@PostMapping("/producto/guardar")
 	public String guardarNuevoProducto(@ModelAttribute("unProducto") Producto nuevoProducto, Model model) {
 		iProductoService.guardarProducto(nuevoProducto);
-		System.out.println(iProductoService.obtenerTodosProductos().get(0).getMarca()); //saber si se mando bien el producto 
-		
-		
+		System.out.println(iProductoService.obtenerTodosProductos().get(0).getMarca());
 		return "redirect:/producto/mostrar";
 		
 	}
@@ -64,4 +63,44 @@ public class ProductoController {
 		return "redirect:/producto/mostrar";
 	}
 	
+	
+	@GetMapping("/producto/editar/{codProducto}")
+	public String editarProducto (Model model, @PathVariable(name="codProducto") int codigo) throws Exception {
+		try {
+			Producto productoEncontrado = iProductoService.encontrarProducto(codigo);
+			model.addAttribute("unProducto", productoEncontrado);	
+			model.addAttribute("editMode", "true");
+		}
+
+		catch (Exception e) {
+			model.addAttribute("formUsuarioErrorMessage",e.getMessage());
+			model.addAttribute("unProducto", iProductoService.crearProducto());
+			model.addAttribute("editMode", "false");
+		}
+		model.addAttribute("productos", iProductoService.obtenerTodosProductos());
+		return("producto");
+	}
+
+
+	@PostMapping("/producto/modificar")
+	public String modificarProducto(@ModelAttribute("unProducto") Producto productoAModificar, Model model) {
+
+
+		try {
+			iProductoService.modificarProducto(productoAModificar);
+			model.addAttribute("unProducto", new Producto());				
+			model.addAttribute("editMode", "false");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			model.addAttribute("formUsuarioErrorMessage",e.getMessage());
+			model.addAttribute("unProducto", productoAModificar);			
+			model.addAttribute("productos", iProductoService.obtenerTodosProductos());
+			model.addAttribute("editMode","true");
+
+		}
+
+		model.addAttribute("productos", iProductoService.obtenerTodosProductos());
+		return("producto");
+
+	}
 }

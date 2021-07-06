@@ -21,6 +21,7 @@ public class ClienteServiceImp implements IClienteService{
 	@Autowired
 	Cliente unCliente;
 
+	
 	@Override
 	public void guardarCliente(Cliente unCliente) {
 		// TODO Auto-generated method stub
@@ -39,8 +40,6 @@ public class ClienteServiceImp implements IClienteService{
 
         //Tiempo faltante hasta el cumpleaños
         LocalDate nextBDay = fechaNac.withYear(fechaHoy.getYear());
-
-        //Si el cumpleaños ya ocurrió este año, agrega 1 año
         if (nextBDay.isBefore(fechaHoy) || nextBDay.isEqual(fechaHoy)) {
             nextBDay = nextBDay.plusYears(1);
         }
@@ -52,7 +51,7 @@ public class ClienteServiceImp implements IClienteService{
 		
 		listadoClientes.add(unCliente);
 	}
-
+	
 	@Override
 	public Cliente crearCliente() {
 		// TODO Auto-generated method stub
@@ -84,6 +83,16 @@ public class ClienteServiceImp implements IClienteService{
 		    	listadoClientes.set(i, clienteModificado);
 		    }
 		}	
+	}
+	
+	@Override
+	public void eliminarCliente(int dni) {
+		// TODO Auto-generated method stub
+		for (int i = 0; i < listadoClientes.size(); i++){
+		    if (listadoClientes.get(i).getNroDocumento() == dni) {
+		    	listadoClientes.remove(i);
+		    }
+		}
 	}
 
 }

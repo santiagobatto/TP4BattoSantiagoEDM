@@ -1,12 +1,16 @@
 package ar.edu.unju.edm.model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -14,8 +18,8 @@ import org.springframework.stereotype.Component;
 
 @Entity
 @Table(name = "CLIENTES")
-
 @Component
+
 public class Cliente {
 	
 	@Id
@@ -27,9 +31,6 @@ public class Cliente {
 	@Column
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate fechaNacimiento;
-	
-	// Calendar
-	// private Date fechaUltimCompra = new Date();
 	
 	@Column
 	private String tipoDocumento;
@@ -60,7 +61,10 @@ public class Cliente {
 	
 	@Column
 	private String tiempoUltCompra;
-
+	
+	@OneToMany(mappedBy ="cliente", cascade = CascadeType.ALL)
+	private List<Venta> ventas = new ArrayList<Venta>();
+	
 	public String getTiempoUltCompra() {
 		return tiempoUltCompra;
 	}

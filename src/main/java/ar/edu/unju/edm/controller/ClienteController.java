@@ -23,7 +23,7 @@ public class ClienteController {
 	private static final Log LOGGER = LogFactory.getLog(ClienteController.class);
 	
 	@Autowired
-	@Qualifier("unImp")
+	@Qualifier("mysql")
 	IClienteService clienteService; 
 	
 	/*@Autowired
@@ -59,24 +59,20 @@ public class ClienteController {
 		LOGGER.info("METHOD: ingresando el metodo Guardar");
 		clienteService.guardarCliente(nuevoCliente);		
 		LOGGER.info("Tamaño del Listado: "+ clienteService.obtenerTodosClientes().size());
-		trabajarConFechas(); //ver como trabaja fechas 
 		return "redirect:/cliente/mostrar";
 	}
-	
+	/*
 	public void trabajarConFechas() {
-		//algunas cosas con fecha;
-		//obtengo tres fechas
 		LocalDate fecha1 = clienteService.obtenerTodosClientes().get(0).getFechaNacimiento();
 		LocalDate fecha2 = LocalDate.now();
 		//LocalDate fecha3 = LocalDate.of(2020, 3, 25);
-		//calculo el período entre dos de ellas
+		 * 
 		Period periodo = Period.between(fecha1,fecha2);
-		//una vez que tengo el período puedo saber sus cantidades en días meses y años
+		
 		int dias = periodo.getDays();		
 		System.out.println("dias: "+dias);
-		//salida en la consola, debe dar la diferencia en días
-		//revisar la documentación de las clases LocalDate, LocalTime, LocalDateTime y Period
-	}
+		
+	}*/
 	
 	@PostMapping("/cliente/modificar")
 	public String modificarCliente(@ModelAttribute("unCliente") Cliente clienteModificado, Model model) {
@@ -86,7 +82,6 @@ public class ClienteController {
 			model.addAttribute("editMode", "false");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			// pasar las excepciones al html
 			model.addAttribute("formUsuarioErrorMessage",e.getMessage());
 			model.addAttribute("unCliente", clienteModificado);			
 			model.addAttribute("clientes", clienteService.obtenerTodosClientes());
@@ -95,4 +90,22 @@ public class ClienteController {
 		model.addAttribute("clientes", clienteService.obtenerTodosClientes());
 		return("cliente");
 	}
+	
+	@GetMapping("/cancelar")
+	public String cancelar() {
+		return "redirect:/cliente/mostrar";
+	}
+	
+	@GetMapping("/cliente/eliminarCliente/{id}")
+	public String eliminarCliente(Model model, @PathVariable(name="id") int id) {
+		LOGGER.info("METHOD: ingresando el metodo Eliminar");
+		try {
+			clienteService.eliminarCliente(id);			
+		}
+		catch(Exception e){
+			model.addAttribute("listErrorMessage",e.getMessage());
+		}			
+		return "redirect:/cliente/mostrar";
+	}
+	
 }

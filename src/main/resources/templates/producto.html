@@ -18,7 +18,7 @@
 	<h1>Formulario de Carga de Producto</h1>
 	<br>
 	<font color="white">
-	<form id="formProducto" th:object="${unProducto}" th:action="@{/producto/guardar}" method="post">
+	<form id="formProducto" th:object="${unProducto}" th:action="${editMode}?@{/producto/modificar}:@{/producto/guardar}" method="post">
 		<div class="form-group row">
 			<label for="codigo"class="col-sm-2 col-form-label">Codigo</label> 
 			<div class="col-sm-10">
@@ -56,15 +56,14 @@
 		
 			</div>
 			</div>
-			
-		
-
-		<br>
-	<div class="d-grid gap-2">
-				<button  class="btn btn-primary" type="submit"  value="Agregar">Agregar</button>
+				
+		<div class="form-group row">
+				<div class="col-sm-10">
+					<input type="submit" class="btn btn-info"  th:value="${editMode}?'Modificar Producto':'Crear Producto'">
+				</div>
 			</div>
-	
-	<br>
+
+		
 	</form>
 	
 		<!-- ---------------------------------------------------------------- -->
@@ -97,6 +96,10 @@
 							<a
 								th:onclick="'javascript:confirmarEliminar(\''+${p.codProducto}+'\');'">
 								<i class="fa fa-trash-alt"></i>
+								
+								<a href="#" th:href="@{'/producto/editar/'+${p.codProducto}}">
+									<i class="fa fa-edit"></i></a>
+								
 							</a>
 						</td>
 											
@@ -127,6 +130,7 @@
 							data-dismiss="modal">Cerrar</button>
 						<button type="button" class="btn btn-primary"
 							th:onclick="eliminarProducto()">Eliminar producto</button>
+							
 					</div>
 				</div>
 			</div>

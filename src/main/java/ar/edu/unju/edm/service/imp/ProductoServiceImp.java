@@ -19,8 +19,6 @@ public class ProductoServiceImp implements ProductoService {
 	@Autowired
 	Producto unProducto;
 
-	// ArrayList<Producto> listaDeProductos = new ArrayList<Producto>();
-
 	private List<Producto> listaDeProductos = ListadoProductos.productos;
 
 	@Override
@@ -35,9 +33,14 @@ public class ProductoServiceImp implements ProductoService {
 	}
 
 	@Override
-	public void modificarProducto(Producto productoAModificar) {
+	public void modificarProducto(Producto productoModificado) {
 		// TODO Auto-generated method stub
-
+		for (int i = 0; i < listaDeProductos.size(); i++) {
+			if (listaDeProductos.get(i).getCodProducto() == productoModificado.getCodProducto()) {
+				listaDeProductos.set(i, productoModificado);
+			}
+		}
+		
 	}
 
 	@Override
@@ -55,7 +58,7 @@ public class ProductoServiceImp implements ProductoService {
 	@Override
 	public Producto obtenerUnProducto(String nombreProducto) {
 		// TODO Auto-generated method stub
-		return null;
+		return unProducto;
 	}
 
 	@Override
@@ -80,7 +83,16 @@ public class ProductoServiceImp implements ProductoService {
 	@Override
 	public Producto crearProducto() {
 		// TODO Auto-generated method stub
-		return null;
+		return unProducto;
 	}
+
+	@Override
+	public Producto encontrarProducto(int codProducto) throws Exception {
+		// TODO Auto-generated method stub
+		for (int i = 0; i < listaDeProductos.size(); i++) {
+			unProducto = listaDeProductos.get(i);
+		}
+		return unProducto;
+	}	
 
 }

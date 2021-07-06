@@ -14,22 +14,52 @@
 	<div class="container">
 		<div th:insert="layaout/header :: header"></div>
 		<div class="row col-md-12">
-			<div th:each="c : ${productos}">
+			<div th:each="p : ${productos}">
+			<br>
 				<div class="col-md-4">
 					<div class="card" style="width: 18rem;">
   						<img src="/img/regalo.jpg" class="card-img-top" alt="hola">
 						<div class="card-body">
-							<h5 class="card-title" th:text="${'producto - ' + c.codProducto}">Id</h5>
-							<p class="card-text" th:text="${c.nombre}">Nombre</p>
-							<p class="card-text" th:text="${c.precio}">Precio</p>
-							<a class="stretched-link btn btn-primary"><i class="fas fa-shopping-cart mr-2"></i>Comprar</a>
+							<h5 class="card-title" th:text="${'Producto : ' + p.nombre}" ></h5>
+							<p class="card-text" th:text="${'Codigo producto : ' + p.codProducto}"></p>
+							<p class="card-text" th:text="${'Precio $' + p.precio}"></p>
+							<p class="card-text" th:text="${'Stock: ' + p.stock}"></p>
+							<a class="stretched-link btn btn-primary " th:href="@{'/producto/vender/'+${p.codProducto}}"><i
+								class="fas fa-shopping-cart mr-2"></i>Comprar</a>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		<div th:insert="layaout/footer :: footer"></div>
+		
+		
+		
+		<div class="modal fade" id="modalVender" tabindex="-1" role="dialog">
+			<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content"></div>
+			</div>
+		</div>
+			
+		
 	</div>
+	<br>
+<div th:insert="layaout/footer :: footer"></div>	
+	
+	
+	<script type="text/javascript">
+		$(document).ready(
+				function() {
+					$(".link-vender").on(
+							"click",
+							function(event) {
+								event.preventDefault();
+								$("#modalVender").modal("show").find(
+										".modal-content").load(
+										$(this).attr("href"));
+							});
+				});
+	</script>
+	
 	
 	<script th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"
 		type="text/javascript" src="webjars/jquery/3.5.1/jquery.min.js"></script>

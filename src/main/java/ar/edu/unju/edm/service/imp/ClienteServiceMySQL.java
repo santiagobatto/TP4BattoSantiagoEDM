@@ -1,5 +1,7 @@
 package ar.edu.unju.edm.service.imp;
 
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,6 +50,14 @@ public class ClienteServiceMySQL implements IClienteService{
 	@Override
 	public void modificarCliente(Cliente clienteModificado) {
 		// TODO Auto-generated method stub
+		
+	}
+	
+	@Override
+	public void eliminarCliente(int dni) throws Exception{
+		// TODO Auto-generated method stub
+		Cliente eliminado = clienteDAO.findByNroDocumento(dni).orElseThrow(()->new Exception("no existe el cliente"));
+		clienteDAO.delete(eliminado);
 		
 	}
 	
